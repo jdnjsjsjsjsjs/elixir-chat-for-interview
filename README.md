@@ -1,21 +1,68 @@
-# RealtimeChat
+# 💬 Elixir Chat (OTP)
 
-**TODO: Add description**
+Простой чат на Elixir с использованием OTP (GenServer, Supervisor и процессы).
 
-## Installation
+---
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `realtime_chat` to your list of dependencies in `mix.exs`:
+## 🚀 Возможности
 
-```elixir
-def deps do
-  [
-    {:realtime_chat, "~> 0.1.0"}
-  ]
-end
+* Отправка сообщений всем (broadcast)
+* Приватные сообщения между пользователями
+* Подключение пользователей
+* Автоматическое удаление при выходе (process monitoring)
+
+---
+
+## 🏗 Как устроено
+
+* `ChatServer` — GenServer, хранит пользователей и рассылает сообщения
+* `ChatClient` — отдельный процесс пользователя
+* Supervisor — следит за сервером
+* Используется обмен сообщениями между процессами (`send/receive`)
+
+---
+
+## ▶️ Запуск
+
+```bash
+iex -S mix
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/realtime_chat>.
+---
 
+## 👤 Создать пользователей
+
+```elixir
+alice = ChatClient.start("Alice")
+bob = ChatClient.start("Bob")
+```
+
+---
+
+## 💬 Отправить сообщение всем
+
+```elixir
+ChatClient.send_message(alice, "Hello!")
+```
+
+---
+
+## 🔒 Приватное сообщение
+
+```elixir
+ChatClient.send_private(alice, "Bob", "Hi Bob!")
+```
+
+---
+
+## 📋 Список пользователей
+
+```elixir
+ChatServer.list_users()
+```
+
+---
+
+## 📌 Примечание
+
+Это учебный проект для изучения Elixir и OTP.
